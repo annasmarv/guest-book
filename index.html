@@ -131,12 +131,10 @@
 
     <script>
         // --- Supabase Configuration ---
-        const SUPABASE_URL = 'https://niecwwrbkbxjkvablmly.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pZWN3d3Jia2J4amt2YWJsbWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5NjEyNzEsImV4cCI6MjA4MzUzNzI3MX0.1HmNZoglSrxpi0wtUi7VDwJXxJB7K379dybPR1BrKOs';
-        let supabase;
-        
-        if (window.supabase) {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        if (!window.supabaseClient) {
+            const SUPABASE_URL = 'https://niecwwrbkbxjkvablmly.supabase.co';
+            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pZWN3d3Jia2J4amt2YWJsbWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5NjEyNzEsImV4cCI6MjA4MzUzNzI3MX0.1HmNZoglSrxpi0wtUi7VDwJXxJB7K379dybPR1BrKOs';
+            window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         }
 
         // --- State Management ---
@@ -177,13 +175,13 @@
                 telepon: formData.get('telepon'),
                 keperluan: formData.get('keperluan'),
                 timestamp: Date.now(),
-                dateStr: new Date().toLocaleDateString('id-ID'),
-                timeStr: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+                date_str: new Date().toLocaleDateString('id-ID'),
+                time_str: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
             };
 
             try {
                 // Insert data ke Supabase
-                const { data, error } = await supabase
+                const { data, error } = await window.supabaseClient
                     .from('guests')
                     .insert([newGuest]);
 
