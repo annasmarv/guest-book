@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -151,9 +152,12 @@
 
         // --- Form Handling ---
         const guestForm = document.getElementById('guestForm');
-        const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxFbJ_m0R_MN0tfwtSTTfajgs1YNA9FFvEFp5ITrDDOKnsUYrUk90qqTC4FWFBCkM_fjw/exec';
+        const SUPABASE_URL = 'https://niecwwrbkbxjkvablmly.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pZWN3d3Jia2J4amt2YWJsbWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5NjEyNzEsImV4cCI6MjA4MzUzNzI3MX0.1HmNZoglSrxpi0wtUi7VDwJXxJB7K379dybPR1BrKOs';
+        
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        guestForm.addEventListener('submit', function(e) {
+        guestForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             const btn = document.getElementById('submitBtn');
             btn.disabled = true;
@@ -172,42 +176,40 @@
                 timeStr: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
             };
 
-            // Kirim data ke Google Sheets via Google Apps Script
-            fetch(WEBHOOK_URL, {
-                method: 'POST',
-                body: JSON.stringify(newGuest),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    // Simpan juga ke localStorage sebagai backup
-                    guests.unshift(newGuest);
-                    localStorage.setItem('smkn7_guests', JSON.stringify(guests));
+            try {
+                // Insert data ke Supabase
+                const { data, error } = await supabase
+                    .from('guests')
+                    .insert([newGuest]);
 
-                    // UI Transisi Sukses
-                    setTimeout(() => {
-                        guestForm.classList.add('view-hidden');
-                        document.getElementById('successMessage').classList.remove('view-hidden');
-                        document.body.classList.add('no-scroll');
-                        btn.disabled = false;
-                        btn.innerHTML = 'SIMPAN <i data-lucide="arrow-right"></i>';
-                        lucide.createIcons();
-                    }, 800);
-                } else {
-                    alert('Gagal menyimpan data. Silahkan coba lagi.');
+                if (error) {
+                    console.error('Supabase error:', error);
+                    alert('Gagal menyimpan data: ' + error.message);
                     btn.disabled = false;
                     btn.innerHTML = 'SIMPAN <i data-lucide="arrow-right"></i>';
+                    lucide.createIcons();
+                    return;
                 }
-            })
-            .catch(error => {
+
+                // Simpan juga ke localStorage sebagai backup
+                guests.unshift(newGuest);
+                localStorage.setItem('smkn7_guests', JSON.stringify(guests));
+
+                // UI Transisi Sukses
+                setTimeout(() => {
+                    guestForm.classList.add('view-hidden');
+                    document.getElementById('successMessage').classList.remove('view-hidden');
+                    document.body.classList.add('no-scroll');
+                    btn.disabled = false;
+                    btn.innerHTML = 'SIMPAN <i data-lucide="arrow-right"></i>';
+                    lucide.createIcons();
+                }, 800);
+            } catch(error) {
                 console.error('Error:', error);
-                alert('Terjadi kesalahan. Silahkan coba lagi.');
+                alert('Terjadi kesalahan: ' + error.message);
                 btn.disabled = false;
                 btn.innerHTML = 'SIMPAN <i data-lucide="arrow-right"></i>';
-            });
+            }
         });
 
         function resetForm() {
