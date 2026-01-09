@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buku Tamu Digital SMKN 7 Kendal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(.33); }
+            80%, 100% { opacity: 0; }
+        }
+        @keyframes pulse-dot {
+            0% { transform: scale(.8); }
+            50% { transform: scale(1); }
+            100% { transform: scale(.8); }
+        }
+        .animate-pulse-ring {
+            animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        .animate-pulse-dot {
+            animation: pulse-dot 1.25s cubic-bezier(0.455, 0.03, 0.515, 0.955) -0.4s infinite;
+        }
+        .view-hidden { display: none; }
+        .no-scroll { overflow: hidden; height: 100vh; }
+    </style>
+</head>
+<body class="min-h-screen text-slate-900">
+
+    <!-- Desktop Navbar -->
+   
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto p-4 md:p-10">
+        
+        <!-- FORM VIEW -->
+        <div>
+            <div class="fixed top-0 left-0 w-full h-[30vh] bg-gradient-to-br from-amber-500 via-orange-500 to-orange-600 flex flex-col items-start justify-start text-left px-6 pt-8 z-0">
+                <div class="w-full flex items-start justify-between gap-6">
+                    <div class="max-w-3xl space-y-4">
+                        <div id="current-date" class="text-[10px] font-black text-amber-100 uppercase tracking-widest bg-white/10 px-3 py-1.5 rounded-full ring-1 ring-white/10 w-fit">
+                            Memuat Tanggal...
+                        </div>
+                        <!-- Title -->
+                        <h1 class="text-4xl md:text-5xl font-black text-white leading-tight uppercase tracking-tighter mt-2">
+                            Formulir <span class="text-amber-200">Tamu</span>
+                        </h1>
+                    </div>
+                    <!-- Circular Logo -->
+                    <div class="flex-shrink-0">
+                        <div class="w-32 h-32 bg-white rounded-full shadow-lg flex items-center justify-center">
+                            <i data-lucide="school" class="w-16 h-16 text-amber-500"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative z-10 mt-40 md:mt-32 pb-20 w-full">
+                <div class="bg-white rounded-[2rem] md:rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-slate-100 overflow-hidden">
+                    <!-- Form Actual -->
+                    <form id="guestForm" class="p-6 md:p-14 space-y-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                            <div class="space-y-3">
+                                <label class="text-xs font-black uppercase tracking-[0.2em] text-slate-500 flex items-center gap-2 px-1">
+                                    <i data-lucide="user" class="w-4 h-4 text-amber-500"></i> Nama Lengkap
+                                </label>
+                                <input required type="text" name="nama" placeholder="Ketik nama Anda..." class="w-full px-6 py-4 bg-white border-2 border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-50 outline-none transition-all font-bold rounded-2xl shadow-sm">
+                            </div>
+                            <div class="space-y-3">
+                                <label class="text-xs font-black uppercase tracking-[0.2em] text-slate-500 flex items-center gap-2 px-1">
+                                    <i data-lucide="briefcase" class="w-4 h-4 text-amber-500"></i> Instansi / Alamat
+                                </label>
+                                <input required type="text" name="instansi" placeholder="Asal instansi Anda..." class="w-full px-6 py-4 bg-white border-2 border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-50 outline-none transition-all font-bold rounded-2xl shadow-sm">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+                            <div class="space-y-3">
+                                <label class="text-xs font-black uppercase tracking-[0.2em] text-slate-500 flex items-center gap-2 px-1">
+                                    <i data-lucide="users" class="w-4 h-4 text-amber-500"></i> Bertemu Dengan
+                                </label>
+                                <input required type="text" name="tujuan" placeholder="Nama Guru atau Staff" class="w-full px-6 py-4 bg-white border-2 border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-50 outline-none transition-all font-bold rounded-2xl shadow-sm">
+                            </div>
+                            <div class="space-y-3">
+                                <label class="text-xs font-black uppercase tracking-[0.2em] text-slate-500 flex items-center gap-2 px-1">
+                                    <i data-lucide="clock" class="w-4 h-4 text-amber-500"></i> No. Telepon / WA
+                                </label>
+                                <input required type="tel" name="telepon" placeholder="08xxxxxxxxxx" class="w-full px-6 py-4 bg-white border-2 border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-50 outline-none transition-all font-bold rounded-2xl shadow-sm">
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="text-xs font-black uppercase tracking-[0.2em] text-slate-500 flex items-center gap-2 px-1">
+                                <i data-lucide="message-square" class="w-4 h-4 text-amber-500"></i> Keperluan
+                            </label>
+                            <textarea required name="keperluan" rows="4" placeholder="Jelaskan maksud kunjungan..." class="w-full px-6 py-4 bg-white border-2 border-slate-200 focus:border-amber-500 focus:ring-4 focus:ring-amber-50 outline-none transition-all font-bold rounded-2xl shadow-sm resize-none"></textarea>
+                        </div>
+                        <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-orange-500 to-amber-500 text-white font-black py-5 rounded-[1.5rem] shadow-xl hover:shadow-orange-200 transition-all transform active:scale-[0.98] flex items-center justify-center gap-4 text-lg uppercase tracking-widest">
+                            SIMPAN <i data-lucide="arrow-right"></i>
+                        </button>
+                    </form>
+
+                    <!-- Success Message (Initially Hidden) -->
+                    <div id="successMessage" class="view-hidden p-10 md:p-20 text-center space-y-10 animate-in zoom-in duration-500">
+                        <div class="relative w-28 h-28 mx-auto">
+                           <div class="absolute inset-0 bg-green-100 rounded-full animate-ping opacity-25"></div>
+                           <div class="relative z-10 w-full h-full bg-green-100 text-green-600 rounded-full flex items-center justify-center shadow-inner">
+                              <i data-lucide="check-circle-2" class="w-16 h-16"></i>
+                           </div>
+                        </div>
+                        <div class="space-y-4">
+                            <h3 class="text-4xl font-black text-slate-800 tracking-tighter uppercase">Berhasil Terkirim!</h3>
+                            <p class="text-slate-500 text-lg font-medium max-w-md mx-auto">Terima kasih atas kunjungan Anda. Data telah tersimpan aman.</p>
+                        </div>
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-4 pt-4">
+                            <button onclick="resetForm()" class="w-full md:w-auto px-10 py-4 bg-gradient-to-r from-orange-500 to-amber-500 text-white font-black rounded-2xl hover:shadow-lg shadow-orange-200 transition-all flex items-center justify-center gap-2 uppercase tracking-widest text-sm">
+                                <i data-lucide="refresh-cw" class="w-5 h-5"></i> Isi Lagi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- State Management ---
+        let guests = JSON.parse(localStorage.getItem('smkn7_guests') || '[]');
+
+        // --- Initial Load ---
+        window.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+            updateDate();
+        });
+
+        // --- UI Functions ---
+        function updateDate() {
+            const today = new Date().toLocaleDateString('id-ID', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            document.getElementById('current-date').textContent = today;
+        }
+
+        // --- Form Handling ---
+        const guestForm = document.getElementById('guestForm');
+        const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxFbJ_m0R_MN0tfwtSTTfajgs1YNA9FFvEFp5ITrDDOKnsUYrUk90qqTC4FWFBCkM_fjw/exec';
+
+        guestForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerHTML = 'Sedang Menyimpan...';
+
+            const formData = new FormData(guestForm);
+            const newGuest = {
+                id: Date.now(),
+                nama: formData.get('nama'),
+                instansi: formData.get('instansi'),
+                tujuan: formData.get('tujuan'),
+                telepon: formData.get('telepon'),
+                keperluan: formData.get('keperluan'),
+                timestamp: Date.now(),
+                dateStr: new Date().toLocaleDateString('id-ID'),
+                timeStr: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' })
+            };
+
+            // Kirim data ke Google Sheets via Google Apps Script
+            fetch(WEBHOOK_URL, {
+                method: 'POST',
+                body: JSON.stringify(newGuest),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    // Simpan juga ke localStorage sebagai backup
+                    guests.unshift(newGuest);
+                    localStorage.setItem('smkn7_guests', JSON.stringify(guests));
+
+                    // UI Transisi Sukses
+                    setTimeout(() => {
+                        guestForm.classList.add('view-hidden');
+                        document.getElementById('successMessage').classList.remove('view-hidden');
+                        document.body.classList.add('no-scroll');
+                        btn.disabled = false;
+                        btn.innerHTML = 'SIMPAN <i data-lucide="arrow-right"></i>';
+                        lucide.createIcons();
+                    }, 800);
+                } else {
+                    alert('Gagal menyimpan data. Silahkan coba lagi.');
+                    btn.disabled = false;
+                    btn.innerHTML = 'SIMPAN <i data-lucide="arrow-right"></i>';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Terjadi kesalahan. Silahkan coba lagi.');
+                btn.disabled = false;
+                btn.innerHTML = 'SIMPAN <i data-lucide="arrow-right"></i>';
+            });
+        });
+
+        function resetForm() {
+            guestForm.reset();
+            guestForm.classList.remove('view-hidden');
+            document.getElementById('successMessage').classList.add('view-hidden');
+            document.body.classList.remove('no-scroll');
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>
