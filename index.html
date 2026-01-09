@@ -1,14 +1,48 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+    <!-- Meta Basic -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistem Buku Tamu Digital SMK Negeri 7 Kendal. Platform resmi untuk mendokumentasikan kunjungan dan tamu ke sekolah kami.">
+    <meta name="keywords" content="buku tamu, SMK Negeri 7 Kendal, tamu digital, dokumentasi kunjungan">
+    <meta name="author" content="SMK Negeri 7 Kendal">
+    <meta name="theme-color" content="#f97316">
+    <meta name="mobile-web-app-capable" content="yes">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tamu.sevka.id/">
+    <meta property="og:title" content="Buku Tamu Digital SMK Negeri 7 Kendal">
+    <meta property="og:description" content="Sistem Buku Tamu Digital SMK Negeri 7 Kendal. Platform resmi untuk mendokumentasikan kunjungan dan tamu ke sekolah kami.">
+    <meta property="og:image" content="/public/logo.webp">
+    <meta property="og:site_name" content="SMK Negeri 7 Kendal">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Buku Tamu Digital SMK Negeri 7 Kendal">
+    <meta name="twitter:description" content="Sistem Buku Tamu Digital SMK Negeri 7 Kendal. Platform resmi untuk mendokumentasikan kunjungan dan tamu ke sekolah kami.">
+    <meta name="twitter:image" content="/public/logo.webp">
+    
+    <!-- Title -->
     <title>Buku Tamu Digital SMK Negeri 7 Kendal</title>    
     <link rel="icon" type="image/x-icon" href="/public/favicon.ico">
+    <link rel="canonical" href="https://guest-book-7rl.pages.dev/">
+    
+    <!-- Styles & Scripts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8JPFQL5EY"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-K8JPFQL5EY');
+    </script>
     <style>
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -52,12 +86,12 @@
                     <!-- Circular Logo -->
                     <div class="flex-shrink-0">
                         <div class="w-32 h-32 bg-white rounded-full shadow-lg flex items-center justify-center overflow-hidden">
-                            <img src="/public/logo.webp" alt="SMKN 7 Kendal Logo" class="w-32 h-32 object-contain">
+                            <img src="/public/logo.webp" alt="SMK Negeri 7 Kendal Logo" class="w-32 h-32 object-contain">
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="relative z-10 mt-40 md:mt-32 pb-20 w-full">
                 <div class="bg-white rounded-[2rem] md:rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-slate-100 overflow-hidden">
                     <!-- Form Actual -->
