@@ -130,6 +130,15 @@
     </main>
 
     <script>
+        // --- Supabase Configuration ---
+        const SUPABASE_URL = 'https://niecwwrbkbxjkvablmly.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pZWN3d3Jia2J4amt2YWJsbWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5NjEyNzEsImV4cCI6MjA4MzUzNzI3MX0.1HmNZoglSrxpi0wtUi7VDwJXxJB7K379dybPR1BrKOs';
+        let supabase;
+        
+        if (window.supabase) {
+            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        }
+
         // --- State Management ---
         let guests = JSON.parse(localStorage.getItem('smkn7_guests') || '[]');
 
@@ -152,10 +161,6 @@
 
         // --- Form Handling ---
         const guestForm = document.getElementById('guestForm');
-        const SUPABASE_URL = 'https://niecwwrbkbxjkvablmly.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pZWN3d3Jia2J4amt2YWJsbWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5NjEyNzEsImV4cCI6MjA4MzUzNzI3MX0.1HmNZoglSrxpi0wtUi7VDwJXxJB7K379dybPR1BrKOs';
-        
-        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
         guestForm.addEventListener('submit', async function(e) {
             e.preventDefault();
