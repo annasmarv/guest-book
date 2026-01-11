@@ -15,9 +15,17 @@ This application uses Cloudflare Pages environment variables for Supabase config
 | Variable Name | Description |
 |--------------|-------------|
 | `SUPABASE_URL` | Your Supabase project URL (e.g., `https://xxxxx.supabase.co`) |
-| `SUPABASE_KEY` | Your Supabase anon/public key |
+| `SUPABASE_ANON_KEY` | Your Supabase anon/public key |
 
-4. Deploy your changes
+4. **Important**: Make sure to select both **Production** and **Preview** environments when adding variables
+5. **Redeploy** your project after adding the environment variables (push a new commit or trigger a manual deploy)
+
+### Troubleshooting
+
+If you see the error "Supabase credentials not configured":
+- Check that both `SUPABASE_URL` and `SUPABASE_ANON_KEY` are set
+- Ensure variables are added to the correct environment (Production/Preview)
+- Redeploy after adding the variables
 
 ### Local Development
 
@@ -25,7 +33,7 @@ For local development with Wrangler, create a `.dev.vars` file in the project ro
 
 ```
 SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=your-anon-key
+SUPABASE_ANON_KEY=your-anon-key
 ```
 
 Then run:
