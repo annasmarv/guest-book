@@ -190,20 +190,52 @@
 
     <script>
         // --- Supabase Configuration ---
-        if (!window.supabaseClient) {
-            const SUPABASE_URL = 'https://niecwwrbkbxjkvablmly.supabase.co';
-            const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5pZWN3d3Jia2J4amt2YWJsbWx5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc5NjEyNzEsImV4cCI6MjA4MzUzNzI3MX0.1HmNZoglSrxpi0wtUi7VDwJXxJB7K379dybPR1BrKOs';
-            window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        // Credentials are loaded from Cloudflare Pages environment variables via API
+        async function initSupabase() {
+            if (window.supabaseClient) return;
+            
+            try {
+                const response = await fetch('/api/config');
+                if (!response.ok) {
+                    throw new Error('Failed to load configuration');
+                }
+                const config = await response.json();
+                
+                if (config.error) {
+                    throw new Error(config.error);
+                }
+                
+                window.supabaseClient = window.supabase.createClient(
+                    config.supabaseUrl,
+                    config.supabaseKey
+                );
+            } catch (error) {
+                console.error('Failed to initialize Supabase:', error);
+                throw error;
+            }
         }
 
         // --- State Management ---
         let guests = JSON.parse(localStorage.getItem('smkn7_guests') || '[]');
 
         // --- Initial Load ---
-        window.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('DOMContentLoaded', async () => {
             lucide.createIcons();
             updateDate();
             setupPhoneInput();
+            try {
+                await initSupabase();
+            } catch (error) {
+                console.error('Supabase initialization failed:', error);
+                // Show error message to user
+                const btn = document.getElementById('submitBtn');
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerHTML = 'Koneksi Gagal';
+                    btn.classList.remove('from-orange-500', 'to-amber-500');
+                    btn.classList.add('bg-red-400', 'cursor-not-allowed');
+                }
+            }
         });
 
         // --- UI Functions ---
@@ -260,6 +292,11 @@
             };
 
             try {
+                // Ensure Supabase is initialized
+                if (!window.supabaseClient) {
+                    await initSupabase();
+                }
+                
                 // Insert data ke Supabase
                 const { data, error } = await window.supabaseClient
                     .from('guests')
